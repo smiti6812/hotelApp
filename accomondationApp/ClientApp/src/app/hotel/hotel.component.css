@@ -1,0 +1,169 @@
+
+
+.booking-modal-header {
+    padding: 2px 16px;
+    background-color: cadetblue;
+    color: white;
+    font-size: 38px;
+    min-height: 80px;
+    border-radius: 15px;
+  }
+  .booking-modal-footer {
+    padding: 2px 16px;
+    background-color: cadetblue;
+    color: white;
+    min-height:80px;
+    border-radius: 15px;
+  }
+  .cursor {
+    cursor: pointer;
+  }
+  
+  .booking-modal {
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .booking-modal-content {
+    border-radius: 10px;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    color: black;
+  }
+  
+  /* The Close Button */
+  .booking-close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close {
+    color: black;
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  
+  .booking-close:hover,
+  .booking-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .booking-selectable-item {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #aaa;
+    margin: 2px;
+    min-width:100px;
+    min-height:70px;
+    background-color: lightgreen;
+  }
+  
+  .booking-selectable-item-monthend {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #aaa;
+    margin: 2px;
+    min-width:100px;
+    min-height:70px;
+    background-color: lightgreen;
+    border-right: 3px solid red;
+  }
+  
+  
+  .booking-item-header {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #ccc;
+    margin: 2px;
+    min-width:100px;
+    min-height:40px;
+  }
+  
+  
+  .booking-item-header-weekend {
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #ccc;
+    margin: 2px;
+    min-width:100px;
+    min-height:40px;
+    background-color: #ddd;
+  }
+  
+  .booking-selectable-item-selected {
+    background-color: red;
+    color: #fff;
+    min-width:80px;
+    min-height:70px;
+    border: 1px solid transparent;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+  }
+  
+  .booking-selectable-item-selected-leftright{
+    background-color: red;
+    color: #fff;
+    min-width:80px;
+    min-height:70px;
+    border: 1px solid transparent;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    border-left: 3px solid white;
+    border-right: 3px solid white;
+  
+  }
+  
+  .booking-selectable-item-selected-left{
+    background-color: red;
+    color: #fff;
+    min-width:80px;
+    min-height:70px;
+    border: 1px solid transparent;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    border-left: 3px solid white;
+  }
+  
+  .booking-selectable-item-selected-right{
+    background-color: red;
+    color: #fff;
+    min-width:80px;
+    min-height:70px;
+    border: 1px solid transparent;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    border-right: 3px solid white;
+  }
+  
+  .colSpan .imageSort{
+    display: none;
+    justify-content: cemter;
+    margin: 0 auto;
+    background-color: lightblue;
+    width:50px;
+  }
+  
+  .colSpan:hover .imageSort{
+    display: flex;
+  }
+  
+  .colSpan {
+    top:0;
+    text-align:center;
+  }
