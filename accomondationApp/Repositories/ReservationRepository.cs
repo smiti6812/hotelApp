@@ -75,10 +75,10 @@ namespace accomondationApp.Repositories
 
         public Task<IEnumerable<Reservation?>> GetReservationsAsync(DateTime startDate, DateTime endDate)
         {
-            return Task.FromResult(reservationCache is null ? Enumerable.Empty<Reservation>() : reservationCache.Values.Where(r => r.StartDate  >= startDate && r.EndDate <= endDate));
+            return Task.FromResult(reservationCache is null ? Enumerable.Empty<Reservation>() : reservationCache.Values.Where(r => r.StartDate >= startDate && r.EndDate <= endDate));
         }
 
-        public Task<Reservation?> GetReservationAsync(int reservationId)
+        public Task<Reservation?>? GetSingleReservationAsync(int reservationId)
         {
             if ( reservationCache is null)
             {
