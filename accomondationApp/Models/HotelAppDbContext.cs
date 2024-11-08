@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using accomondationApp.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace accomondationApp.Models;
@@ -28,7 +29,7 @@ public partial class HotelAppDbContext : DbContext
     public virtual DbSet<RoomStatus> RoomStatuses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=DefaultConnection");
+        => optionsBuilder.UseSqlServer(DBSettingProvider.ReturnConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

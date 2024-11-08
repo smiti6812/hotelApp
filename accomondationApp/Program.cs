@@ -1,15 +1,16 @@
 
+using accomondationApp.Utilities;
 using Microsoft.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
 
+
+var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<accomondationApp.Models.HotelContext>(options =>
-        options.UseSqlServer(connectionString));
+options.UseSqlServer(DBSettingProvider.ReturnConnectionString()));
 
 var app = builder.Build();
 
