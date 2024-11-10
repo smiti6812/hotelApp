@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Component, Inject, Injectable} from '@angular/core';
 import { DateTime, Info, Interval} from 'luxon';
 import { RoomCapacity } from './interfaces/RoomCapacity';
 import { ReservationView } from './interfaces/ReservationView';
 import { Reservation } from './interfaces/Reservation';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -12,11 +13,16 @@ import { Reservation } from './interfaces/Reservation';
 export class HotelService {
   months: number = 3;
   monthArr: number[] = [];
+  reservationView: ReservationView[] = [];
 
-  constructor(){
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string){
     for(let i = 0; i < this.months; i++){
       this.monthArr.push(DateTime.now().plus({month:i}).daysInMonth!);
     }
+    http.get<ReservationView[]>('https://localhost:7246/reservation').subscribe(result => {
+      this.reservationView = result;
+    }, error => console.error(error));
+    alert(this.reservationView[0].room.roomNumber);
   }
 
   public getDaysInMonth(pageSelectedDate: DateTime): any[] {

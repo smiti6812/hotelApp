@@ -9,9 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<accomondationApp.Models.HotelContext>(options =>
+builder.Services.AddDbContext<accomondationApp.Models.HotelAppDbContext>(options =>
 options.UseSqlServer(DBSettingProvider.ReturnConnectionString()));
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("EnableCORS", builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,13 +30,16 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("EnableCORS");
 app.UseStaticFiles();
 app.UseRouting();
 
-
+/*
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+*/
+app.MapControllers();
 
 app.MapFallbackToFile("index.html");
 

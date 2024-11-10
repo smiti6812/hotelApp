@@ -18,7 +18,7 @@ namespace accomondationApp.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet]      
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
