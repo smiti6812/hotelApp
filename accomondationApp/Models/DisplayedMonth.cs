@@ -5,11 +5,9 @@ using System.Collections.Generic;
 
 namespace accomondationApp.Models;
 
-public partial class RoomStatus
+public partial class DisplayedMonth
 {
-    public int RoomStatusId { get; set; }
+    public int DisplayedMonthId { get; set; }
 
-    public string Status { get; set; }
-
-    public virtual ICollection<Room> Rooms { get; set; } = new List<Room>();
+    public int? DisplayedMonths { get; set; }
 }
