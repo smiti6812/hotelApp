@@ -1,15 +1,14 @@
-import { Component, Input, Inject, NgModule, ViewChild, ElementRef  } from '@angular/core';
-import { CommonModule } from "@angular/common";
+import { Component, Input, Inject, NgModule, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { CommonModule, AsyncPipe } from "@angular/common";
 import { ReservationView } from '../interfaces/ReservationView';
 import { Reservation } from '../interfaces/Reservation';
 import { DateTime, Info, Interval} from 'luxon';
 import { HotelService } from '../HotelService';
-//import { FilterPipe } from '../filter.pipe';
 import { FormsModule } from '@angular/forms';
-//import { SortPipe } from '../../pipes/sort.pipe';
-//import { SortParamsDirective } from '../sorting/sort.params.directive';
 import { ReservationformComponent } from '../reservationform/reservationform.component';
 import { ReservationForm } from '../interfaces/ReservationForm';
+import { Observable } from 'rxjs';
+import { Room } from '../interfaces/Room';
 
 @Component({
   selector: 'app-hotel',
@@ -19,7 +18,7 @@ import { ReservationForm } from '../interfaces/ReservationForm';
   styleUrls: ['./hotel.component.css']
 })
 
-export class HotelComponent {
+export class HotelComponent implements OnInit  {
   @ViewChild('search') searchElement: ElementRef;
   @Input() reservationView!: ReservationView[];
   @Input() daysInMonthArr!: any [];
@@ -32,6 +31,7 @@ export class HotelComponent {
   @Input() selectedRow: number = -1;
   @Input() start: number = -1;
   @Input() end: number = -1;
+  rooms!: Room;
   showModal: boolean = false;
   months: number = 3;
   pageSelectedDate:DateTime = DateTime.now();
@@ -54,10 +54,31 @@ export class HotelComponent {
     this.reservationStartSaved = [];
     this.hotelService = _hotelService;
     this.daysInMonthArr = this.hotelService.getDaysInMonth(this.pageSelectedDate);
-    this.reservationView = this.hotelService.getReservationView(this.pageSelectedDate);
+    //this.reservationView = this.hotelService.getReservationView(this.pageSelectedDate);
+    this.reservationMonths = this.hotelService.monthArr;
+
+    //this.clearSelectedDateArr();
+    //this.updateReservedSavedFromReservation();
+  }
+
+  ngOnInit(): void {
+    this.daysInMonthArr = this.hotelService.getDaysInMonth(this.pageSelectedDate);
+
+    this.hotelService.getReservationView1(this.pageSelectedDate).subscribe(result =>
+      this.reservationView = result,
+      error => console.error(error),
+      () => console.log('ReservationView loaded'),
+    );
     this.reservationMonths = this.hotelService.monthArr;
     this.clearSelectedDateArr();
     this.updateReservedSavedFromReservation();
+    /*
+    this.hotelService.getRoom().subscribe(result =>
+      this.rooms = result,
+      error => console.error(error),
+      () => console.log('Room loaded')
+    );
+    */
   }
 
   focusSearch() {
@@ -88,8 +109,8 @@ export class HotelComponent {
       if (!this.selected.find(val => val === form.view.dayDates[i])) {
         this.selected.push(form.view.dayDates[i]);
       }
-      let row = this.reservationView.indexOf(form.view);
-      this.selectedDateArr[row][i] = true;
+
+      this.selectedDateArr[this.selectedRow][i] = true;
     }
 
     form.view.reservationSaved[this.end] = true;
@@ -293,7 +314,11 @@ export class HotelComponent {
     this.pageSelectedDate = this.pageSelectedDate.minus({ months: 1 })
     this.daysInMonth = this.pageSelectedDate.daysInMonth!;
     this.daysInMonthArr = this.hotelService.getDaysInMonth(this.pageSelectedDate);
-    this.reservationView = this.hotelService.getReservationView(this.pageSelectedDate);
+    this.hotelService.getReservationView1(this.pageSelectedDate).subscribe(result =>
+      this.reservationView = result,
+      error => console.error(error),
+      () => console.log('ReservationView loaded')
+    );
     this.clearSelectedDateArr();
     this.updateReservedSavedFromReservation();
   }
@@ -303,15 +328,19 @@ export class HotelComponent {
     this.pageSelectedDate = this.pageSelectedDate.plus({ months: 1 });
     this.daysInMonth = this.pageSelectedDate.daysInMonth!;
     this.daysInMonthArr = this.hotelService.getDaysInMonth(this.pageSelectedDate);
-    this.reservationView = this.hotelService.getReservationView(this.pageSelectedDate);
+    this.hotelService.getReservationView1(this.pageSelectedDate).subscribe(result =>
+      this.reservationView = result,
+      error => console.error(error),
+      () => console.log('ReservationView loaded')
+    );
     this.clearSelectedDateArr();
     this.updateReservedSavedFromReservation();
   }
 
   public clearSelectedDateArr() {
-    for (let i = 0; i < this.reservationView.length; i++) {
+    for (let i = 0; i < this.reservationMonths.length; i++) {
       this.selectedDateArr[i] = [];
-      for (let j = 0; j < this.daysInMonthArr.length; j++) {
+      for (let j = 0; j < this.daysInMonthArr?.length; j++) {
         this.selectedDateArr[i][j] = false;
       }
     }
@@ -319,9 +348,9 @@ export class HotelComponent {
   }
 
   public clearReservationSaved() {
-    for (let i = 0; i < this.reservationView.length; i++) {
+    for (let i = 0; i < this.reservationMonths.length; i++) {
       this.reservationSaved[i] = [];
-      for (let j = 0; j < this.daysInMonthArr.length; j++) {
+      for (let j = 0; j < this.daysInMonthArr?.length; j++) {
         this.reservationSaved[i][j] = false;
       }
     }

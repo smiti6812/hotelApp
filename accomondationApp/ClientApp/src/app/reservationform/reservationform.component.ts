@@ -5,7 +5,7 @@ import { ReservationForm } from '../interfaces/ReservationForm';
 import { DateTime, Info, Interval} from 'luxon';
 
 
-@Component({ 
+@Component({
   selector: 'app-reservationform',
   templateUrl: './reservationform.component.html',
   styleUrls: ['./reservationform.component.css']
@@ -26,8 +26,8 @@ export class ReservationformComponent {
       roomNumber: new FormControl(this.reservationForm.roomNumber),
       status: new FormControl(this.reservationForm.status),
       capacity: new FormControl(this.reservationForm.capacity),
-      startDate : new FormControl(this.reservationForm.startDate.toISODate()),
-      endDate : new FormControl(this.reservationForm.endDate.toISODate())
+      startDate : new FormControl(this.reservationForm.startDate),
+      endDate : new FormControl(this.reservationForm.endDate)
     });
   }
   get name() {

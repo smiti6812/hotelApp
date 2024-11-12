@@ -1,9 +1,10 @@
-﻿using accomondationApp.ViewModel;
+﻿using accomondationApp.Models;
+using accomondationApp.ViewModel;
 
 namespace accomondationApp
 {
     public interface IReservationViewService
     {
-        Task<ReservationView[]> GetReservationView(int months);
+        Task<ReservationView[]> GetReservationView(DateTime currDate);
     }
 }

@@ -1,9 +1,11 @@
-import {Component, Inject, Injectable} from '@angular/core';
+import {Component, Inject, Injectable } from '@angular/core';
 import { DateTime, Info, Interval} from 'luxon';
 import { RoomCapacity } from './interfaces/RoomCapacity';
 import { ReservationView } from './interfaces/ReservationView';
 import { Reservation } from './interfaces/Reservation';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Room } from './interfaces/Room';
 
 
 @Injectable({
@@ -13,18 +15,33 @@ import { HttpClient } from '@angular/common/http';
 export class HotelService {
   months: number = 3;
   monthArr: number[] = [];
-  reservationView: ReservationView[] = [];
+ reservationView: ReservationView[] = [];
+ http: HttpClient;
+ rooms!: Observable<Room>;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string){
+    this.http = http;
     for(let i = 0; i < this.months; i++){
       this.monthArr.push(DateTime.now().plus({month:i}).daysInMonth!);
     }
-    http.get<ReservationView[]>('https://localhost:7246/reservation').subscribe(result => {
-      this.reservationView = result;
-    }, error => console.error(error));
-    alert(this.reservationView[0].room.roomNumber);
   }
 
+  getReservationView1(currDate: DateTime): Observable<ReservationView[]> {
+    let param: any = {'currDate': currDate};
+    return this.http.get<ReservationView[]>('https://localhost:7246/reservation/',{params: param});
+  }
+
+  getRoom(): Observable<Room> {
+    return this.http.get<Room>(`https://localhost:7246/reservation`);
+  }
+/*
+  getRooms(): Room[] {
+    this.http.get<Room>('https://localhost:7246/reservation').subscribe(result => {
+      this.rooms = result;
+    }, error => console.error(error));
+    return this.rooms;
+  }
+*/
   public getDaysInMonth(pageSelectedDate: DateTime): any[] {
     this.monthArr = [];
     for(let i = 0; i < this.months; i++){
@@ -68,6 +85,8 @@ export class HotelService {
   getReservationView(pageSelectedDate: DateTime): ReservationView[]{
     let daysInMonth: number = pageSelectedDate.daysInMonth!;
     let reservationView   = [] as ReservationView[];
+
+
     for(let index = 0; index < 5; index++){
       let reservationView1: ReservationView = <ReservationView>{};
       reservationView1.room ={
@@ -132,6 +151,13 @@ export class HotelService {
       }
        reservationView.push(reservationView1);
     }
+    /*
+    let param: any = {'currDate': DateTime.now()};
+    this.http.get<ReservationView[]>('https://localhost:7246/reservation',{params: param}).subscribe({
+      next: (result: ReservationView[]) => this.reservationView = result,
+      error: (err: HttpErrorResponse) => console.log(err)
+  });
+  */
     return reservationView;
   }
 

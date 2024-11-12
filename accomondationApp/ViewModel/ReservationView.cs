@@ -8,6 +8,6 @@ namespace accomondationApp.ViewModel
         public DateTime[] dayDates { get; set; }
         public bool[]  reservationSaved { get; set; }
         public bool[] reservationStartSaved { get; set; }
-        public string[]  reservationName { get; set; }
+        public string[]  reservationName { get; set; }        
     }
 }

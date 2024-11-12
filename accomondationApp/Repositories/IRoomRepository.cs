@@ -4,6 +4,6 @@ namespace accomondationApp.Repositories
 {
     public interface IRoomRepository
     {
-        Task<IEnumerable<Room?>>ReturnRooms();
+       Task<Room[]> ReturnRooms();
     }
 }

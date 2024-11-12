@@ -6,10 +6,10 @@ namespace accomondationApp.Repositories
 {
     public class ReservationRepository : IReservationRepository
     {
-        private HotelAppDbContext dbContext;
+        private HotelAppDBContext dbContext;
 
         private static ConcurrentDictionary<int, Reservation>? reservationCache;
-        public ReservationRepository(HotelAppDbContext _dbContext)
+        public ReservationRepository(HotelAppDBContext _dbContext)
         {
             dbContext = _dbContext;
             if (reservationCache == null)

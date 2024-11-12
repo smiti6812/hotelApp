@@ -1,19 +1,22 @@
-﻿using accomondationApp.Models;
+﻿using System.Runtime.Intrinsics.Arm;
+
+using accomondationApp.Models;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace accomondationApp.Repositories
 {
     public class RoomRepository : IRoomRepository
     {
-        private HotelAppDbContext db;
-        
-        public RoomRepository(HotelAppDbContext _db) 
+        private HotelAppDBContext db;
+
+        public RoomRepository(HotelAppDBContext _db)
         {
             db = _db;
         }
-        public Task<IEnumerable<Room?>> ReturnRooms()
+        public Task<Room[]> ReturnRooms()
         {
-            var result = db.Rooms;
-            return Task.FromResult((IEnumerable<Room?>)result);
+            return Task.FromResult(db.Rooms.Include(c => c.RoomCapacity).Include(s => s.RoomStatus).ToArray<Room>());
         }
     }
 }

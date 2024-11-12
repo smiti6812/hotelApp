@@ -1,15 +1,22 @@
 
 using accomondationApp.Utilities;
 using Microsoft.EntityFrameworkCore;
+using accomondationApp.Repositories;
+using Newtonsoft.Json;
+
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(x =>
+ x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-builder.Services.AddDbContext<accomondationApp.Models.HotelAppDbContext>(options =>
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+
+builder.Services.AddDbContext<accomondationApp.Models.HotelAppDBContext>(options =>
 options.UseSqlServer(DBSettingProvider.ReturnConnectionString()));
 builder.Services.AddCors(options =>
 {
