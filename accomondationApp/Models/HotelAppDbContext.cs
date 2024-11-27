@@ -19,11 +19,15 @@ public partial class HotelAppDBContext : DbContext
 
     public virtual DbSet<PaymentStatus> PaymentStatuses { get; set; }
 
+    public virtual DbSet<PicturePath> PicturePaths { get; set; }
+
     public virtual DbSet<Reservation> Reservations { get; set; }
 
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<RoomCapacity> RoomCapacities { get; set; }
+
+    public virtual DbSet<Slide> Slides { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,6 +38,10 @@ public partial class HotelAppDBContext : DbContext
             entity.ToTable("Customer");
 
             entity.Property(e => e.CustomerId).HasColumnName("customerId");
+            entity.Property(e => e.CreationDate)
+                .HasComputedColumnSql("(getdate())", false)
+                .HasColumnType("datetime")
+                .HasColumnName("creationDate");
             entity.Property(e => e.Email)
                 .HasMaxLength(200)
                 .HasColumnName("email");
@@ -68,6 +76,26 @@ public partial class HotelAppDBContext : DbContext
                 .HasColumnName("paymentStatus");
         });
 
+        modelBuilder.Entity<PicturePath>(entity =>
+        {
+            entity.HasKey(e => e.PicturePathId).HasName("PK__PictureP__ED288B82C58E4B25");
+
+            entity.ToTable("PicturePath");
+
+            entity.Property(e => e.PicturePathId).HasColumnName("picturePathId");
+            entity.Property(e => e.AltText)
+                .HasMaxLength(250)
+                .HasColumnName("altText");
+            entity.Property(e => e.SlideId).HasColumnName("slideId");
+            entity.Property(e => e.Src)
+                .HasMaxLength(250)
+                .HasColumnName("src");
+
+            entity.HasOne(d => d.Slide).WithMany(p => p.PicturePaths)
+                .HasForeignKey(d => d.SlideId)
+                .HasConstraintName("FK__PicturePa__slide__2CF2ADDF");
+        });
+
         modelBuilder.Entity<Reservation>(entity =>
         {
             entity.HasKey(e => e.ReservationId).HasName("PK__Reservat__B14BF5C56D2F3B3C");
@@ -80,6 +108,10 @@ public partial class HotelAppDBContext : DbContext
                 .HasColumnType("date")
                 .HasColumnName("endDate");
             entity.Property(e => e.PaymentStatusId).HasColumnName("paymentStatusId");
+            entity.Property(e => e.ReservationDate)
+                .HasComputedColumnSql("(getdate())", false)
+                .HasColumnType("datetime")
+                .HasColumnName("reservationDate");
             entity.Property(e => e.RommId).HasColumnName("rommId");
             entity.Property(e => e.StartDate)
                 .HasColumnType("date")
@@ -126,6 +158,13 @@ public partial class HotelAppDBContext : DbContext
                 .HasComment("it shows the number of beds")
                 .HasColumnName("roomCapacityId");
             entity.Property(e => e.Capacity).HasColumnName("capacity");
+        });
+
+        modelBuilder.Entity<Slide>(entity =>
+        {
+            entity.HasKey(e => e.SlideId).HasName("PK__Slides__52D88E3FFD2EC7A6");
+
+            entity.Property(e => e.SlideId).HasColumnName("slideId");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -13,5 +13,7 @@ public partial class Customer
 
     public string Email { get; set; }
 
+    public DateTime CreationDate { get; set; }
+
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

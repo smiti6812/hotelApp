@@ -1,5 +1,6 @@
+import { PicturePath } from "./PicturePath";
 
 export interface Slides{
-  src: string,
-  alt: string
+  slideId: number,
+  picturePath: PicturePath[]
 }

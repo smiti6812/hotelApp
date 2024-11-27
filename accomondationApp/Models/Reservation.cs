@@ -19,6 +19,8 @@ public partial class Reservation
 
     public int? PaymentStatusId { get; set; }
 
+    public DateTime ReservationDate { get; set; }
+
     public virtual Customer Customer { get; set; }
 
     public virtual PaymentStatus PaymentStatus { get; set; }
