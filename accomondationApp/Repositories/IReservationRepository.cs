@@ -8,6 +8,9 @@ namespace accomondationApp.Repositories
         Task<bool?> DeleteReservationAsync(int reservationId);
         Task<Reservation?>? GetSingleReservationAsync(int reservationId);
         Task<Reservation?> AddReservationAsync(Reservation reservation);
+        Task<Reservation> CheckReturnReservation(int roomId, DateTime date);
+        IEnumerable<Reservation> GetReservations(DateTime date);
+        int DisplayMonths();
 
     }
 }

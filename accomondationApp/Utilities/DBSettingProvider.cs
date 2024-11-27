@@ -41,7 +41,7 @@ namespace accomondationApp.Utilities
         public static string ReturnConnectionString()
         {
             var dbSetting = DBSettingProvider.GetDBSetting();
-            return $"Data Source = {EncryptDecrypt.DecodeFrom64(dbSetting.Server)}; Initial Catalog = {EncryptDecrypt.DecodeFrom64(dbSetting.Database)}; user id = {EncryptDecrypt.DecodeFrom64(dbSetting.UserId)}; password = {EncryptDecrypt.DecodeFrom64(dbSetting.Password)}; TrustServerCertificate = True;MultipleActiveResultSets=True;";
+            return $"Data Source = {EncryptDecrypt.DecodeFrom64(dbSetting.Server)}; Initial Catalog = {EncryptDecrypt.DecodeFrom64(dbSetting.Database)}; user id = {EncryptDecrypt.DecodeFrom64(dbSetting.UserId)}; password = {EncryptDecrypt.DecodeFrom64(dbSetting.Password)}; TrustServerCertificate = True;MultipleActiveResultSets=True;";            
         }
     }
 }

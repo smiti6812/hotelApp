@@ -14,6 +14,7 @@ import { ReservationformComponent } from './reservationform/reservationform.comp
 import { SortPipe } from '../app/pipes/sort.pipe';
 import { FilterPipe } from '../app/filter.pipe';
 import { SortParamsDirective } from '../app/sorting/sort.params.directive';
+import { SlideshowComponent } from './slideshow/slideshow.component';
 
 @NgModule({
   declarations: [
@@ -21,25 +22,26 @@ import { SortParamsDirective } from '../app/sorting/sort.params.directive';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent,   
+    FetchDataComponent,
     ReservationformComponent,
     HotelComponent,
     FilterPipe,
     SortPipe,
-    SortParamsDirective
+    SortParamsDirective,
+    SlideshowComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,        
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'hotel', component: HotelComponent}
     ])
-  ],  
+  ],
   providers: [],
   bootstrap: [AppComponent, HotelComponent]
 })

@@ -7,4 +7,5 @@ export interface ReservationView{
   reservationSaved: boolean [],
   reservationStartSaved: boolean[],
   reservationName: string[],
+  selectedDateArr: boolean[]
 }

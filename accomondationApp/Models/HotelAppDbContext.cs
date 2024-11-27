@@ -25,13 +25,11 @@ public partial class HotelAppDBContext : DbContext
 
     public virtual DbSet<RoomCapacity> RoomCapacities { get; set; }
 
-    public virtual DbSet<RoomStatus> RoomStatuses { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__B611CB7D359B6339");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__B611CB7D15FFCAC6");
 
             entity.ToTable("Customer");
 
@@ -46,7 +44,7 @@ public partial class HotelAppDBContext : DbContext
 
         modelBuilder.Entity<DisplayedMonth>(entity =>
         {
-            entity.HasKey(e => e.DisplayedMonthId).HasName("PK__Displaye__0F705D7C7F7A66DF");
+            entity.HasKey(e => e.DisplayedMonthId).HasName("PK__Displaye__0F705D7C2F66722A");
 
             entity.ToTable("DisplayedMonth");
 
@@ -56,19 +54,23 @@ public partial class HotelAppDBContext : DbContext
 
         modelBuilder.Entity<PaymentStatus>(entity =>
         {
-            entity.HasKey(e => e.PaymentStatusId).HasName("PK__PaymentS__29CD0BBCAA055745");
+            entity.HasKey(e => e.PaymentStatusId).HasName("PK__PaymentS__29CD0BBCC4FBF458");
 
             entity.ToTable("PaymentStatus");
 
-            entity.Property(e => e.PaymentStatusId).HasColumnName("paymentStatusId");
+            entity.Property(e => e.PaymentStatusId)
+                .ValueGeneratedNever()
+                .HasColumnName("paymentStatusId");
+            entity.Property(e => e.Payed).HasColumnName("payed");
             entity.Property(e => e.PaymentStatus1)
+                .IsRequired()
                 .HasMaxLength(200)
                 .HasColumnName("paymentStatus");
         });
 
         modelBuilder.Entity<Reservation>(entity =>
         {
-            entity.HasKey(e => e.ReservationId).HasName("PK__Reservat__B14BF5C5241AB6AB");
+            entity.HasKey(e => e.ReservationId).HasName("PK__Reservat__B14BF5C56D2F3B3C");
 
             entity.ToTable("Reservation");
 
@@ -85,20 +87,20 @@ public partial class HotelAppDBContext : DbContext
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK__Reservati__custo__440B1D61");
+                .HasConstraintName("FK__Reservati__custo__4316F928");
 
             entity.HasOne(d => d.PaymentStatus).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.PaymentStatusId)
-                .HasConstraintName("FK__Reservati__payme__44FF419A");
+                .HasConstraintName("FK__Reservati__payme__0C85DE4D");
 
             entity.HasOne(d => d.Romm).WithMany(p => p.Reservations)
                 .HasForeignKey(d => d.RommId)
-                .HasConstraintName("FK__Reservati__rommI__4316F928");
+                .HasConstraintName("FK__Reservati__rommI__44FF419A");
         });
 
         modelBuilder.Entity<Room>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__Room__6C3BF5BE7642F3F4");
+            entity.HasKey(e => e.RoomId).HasName("PK__Room__6C3BF5BE27310E7E");
 
             entity.ToTable("Room");
 
@@ -107,39 +109,23 @@ public partial class HotelAppDBContext : DbContext
             entity.Property(e => e.RoomNumber)
                 .HasMaxLength(250)
                 .HasColumnName("roomNumber");
-            entity.Property(e => e.RoomStatusId).HasColumnName("roomStatusId");
 
             entity.HasOne(d => d.RoomCapacity).WithMany(p => p.Rooms)
                 .HasForeignKey(d => d.RoomCapacityId)
-                .HasConstraintName("FK__Room__roomCapaci__3B75D760");
-
-            entity.HasOne(d => d.RoomStatus).WithMany(p => p.Rooms)
-                .HasForeignKey(d => d.RoomStatusId)
-                .HasConstraintName("FK__Room__roomStatus__3C69FB99");
+                .HasConstraintName("FK__Room__roomCapaci__0D7A0286");
         });
 
         modelBuilder.Entity<RoomCapacity>(entity =>
         {
-            entity.HasKey(e => e.RoomCapacityId).HasName("PK__RoomCapa__FB83523F509E77E5");
+            entity.HasKey(e => e.RoomCapacityId).HasName("PK__RoomCapa__FB83523FD0083160");
 
             entity.ToTable("RoomCapacity");
 
             entity.Property(e => e.RoomCapacityId)
+                .ValueGeneratedNever()
                 .HasComment("it shows the number of beds")
                 .HasColumnName("roomCapacityId");
             entity.Property(e => e.Capacity).HasColumnName("capacity");
-        });
-
-        modelBuilder.Entity<RoomStatus>(entity =>
-        {
-            entity.HasKey(e => e.RoomStatusId).HasName("PK__RoomStat__AB16F41A7A22DF69");
-
-            entity.ToTable("RoomStatus");
-
-            entity.Property(e => e.RoomStatusId).HasColumnName("roomStatusId");
-            entity.Property(e => e.Status)
-                .HasMaxLength(200)
-                .HasColumnName("status");
         });
 
         OnModelCreatingPartial(modelBuilder);

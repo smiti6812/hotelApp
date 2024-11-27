@@ -2,7 +2,6 @@
     <p style="margin-left:50px;">M & M Rooms</p>
   </div>
 <div *ngIf="showModal" class="booking-modal">
-
     <div  *ngIf="selected.length > 0" class="booking-modal-content">
       <div class="booking-modal-header">
         Save your booking
@@ -13,10 +12,10 @@
       </div>
     </div>
   </div>
-  <p *ngIf="!reservationView?.length"><em>Loading...</em></p>
+  <p *ngIf="!reservationViewWrapper?.reservationView?.length"><em>Loading...</em></p>
       <div style="overflow-x:auto;" >
 
-        <table class="table table-stripped table-bordered" *ngIf="reservationView?.length">
+        <table class="table table-stripped table-bordered" *ngIf="reservationViewWrapper?.reservationView?.length">
           <thead>
             <tr>
               <th colspan="3" style="position:sticky;left:0;">
@@ -27,7 +26,7 @@
                   <input class="form-control" style="max-width: 400px;" #search type="text" [(ngModel)]="searchText"  placeholder="Search.." >
                 </div>
               </th>
-              <th [attr.colspan]="days" *ngFor="let days of reservationMonths;let i = index">
+              <th [attr.colspan]="days" *ngFor="let days of reservationViewWrapper.monthArr;let i = index">
                 <div  style="width:100%;display:flex;justify-content: center;font-weight: bold; font-size: 18px;">
                   <span (click)="goToPreviousMonth()" style="margin-right:5px;font-weight: bold;">&#171;</span><div> {{pageSelectedDate.plus({month:i}).monthShort + ' '+ pageSelectedDate.plus({month:i}).year}}</div><span (click)="goToNextMonth()" style="margin-left: 5px;font-weight: bold;">&#187;</span>
                 </div>
@@ -46,42 +45,37 @@
                   <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up" id="bedsAsc"></i>
                   <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-down" id="bedsDesc"></i>
               </th>
-              <th>
-                <div class="colSpan">
-                    Status
-
-              </div>
-              </th>
-              <th class="booking-item-header"  *ngFor="let item of daysInMonthArr" [ngClass]="item.dayDates.isWeekend ? 'booking-item-header-weekend' : 'booking-item-header'">
+              <th class="booking-item-header"  *ngFor="let item of reservationViewWrapper.reservationViewHeader.dayDates;let index = index" [ngClass]="checkWeekend(item) ? 'booking-item-header-weekend' : 'booking-item-header'">
                 <div style="display:flex;justify-content:center;margin:0 auto;">
-                  {{ item.weekDay }}{{ item.name }}
+                 {{getWeekDay(index)}}
               </div>
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of reservationView |filter:searchText|sort:direction:column:type; let r = index">
+            <tr *ngFor="let row of reservationViewWrapper.reservationView |filter:searchText|sort:direction:column:type; let r = index">
               <td style="position:sticky;left:0;min-width:120px;">
                 {{row.room.roomNumber}}
               </td>
               <td style="min-width:100px;">
                 {{row.room.roomCapacity.capacity}}
               </td>
-              <td >
-                {{row.room.status}}
-              </td>
               <td *ngFor="let item of row?.dayDates; let c = index" class="booking-selectable-item"
-                 [ngClass]="(selectedDateArr[r][c] || checkReservation1(row.room.roomNumber, item)) && !row.reservationStartSaved[c] && !row.reservationSaved[c]  ? 'booking-selectable-item-selected': row.reservationStartSaved[c] && !row.reservationSaved[c] ? 'booking-selectable-item-selected-left' : row.reservationSaved[c] && !row.reservationStartSaved[c] ? 'booking-selectable-item-selected-right' : checkReservation1(row.room.roomNumber, item) && row.reservationStartSaved[c] && row.reservationSaved[c] ? 'booking-selectable-item-selected-leftright' :
-                 (item?.day === item?.daysInMonth) && item.day > 1 && c < row.dayDates.length - 1? 'booking-selectable-item-monthend' : ''"
+                 [ngClass]="(row.selectedDateArr[c] || checkReservation1(row.room.roomId, item)) && !row.reservationStartSaved[c] && !row.reservationSaved[c]  ?
+                 'booking-selectable-item-selected': row.reservationStartSaved[c] && !row.reservationSaved[c] ? 'booking-selectable-item-selected-left' :
+                 row.reservationSaved[c] && !row.reservationStartSaved[c] ? 'booking-selectable-item-selected-right' :
+                 checkReservation1(row.room.roomId, item) && row.reservationStartSaved[c] && row.reservationSaved[c] ? 'booking-selectable-item-selected-leftright' :
+                 (getDate(item).day === getDate(item).daysInMonth) && getDate(item).day > 1 && c < row.dayDates.length - 1? 'booking-selectable-item-monthend' : ''"
 
                 style="color:transparent;"
-                (mousedown) = "onMouseArrDown(r, c, item, row.room.roomNumber)"
-                (mouseover) = "onMouseArrOver(r, c, item, row.room.roomNumber)"
+                (mousedown) = "onMouseArrDown(r, c, item, row.room.roomId)"
+                (mouseover) = "onMouseArrOver(r, c, item, row.room.roomId)"
+
                 (mouseup)="openModalAndSelectRangeBoxForRoomArr(row, row.dayDates, r, c, item)">
                 <span *ngIf="row.reservationSaved[c]" (click) = "deleteReservation(row, item, r)" class="close">&times;</span>
                   <div *ngIf="row.reservationSaved[c] || row.reservationStartSaved[c] || row.reservationName[c]; else other_content" style="font-size:9px; color:white;">
                     <div *ngIf="row.reservationSaved[c] || row.reservationStartSaved[c]" style="display:inline-block;font-size:10px; color:white;">
-                      {{item}}
+                      {{getDateString(item)}}
                     </div>
                     <div *ngIf="row.reservationName[c]" style="display:inline-block;font-size:9px; color:white;line-height: 15px;">
                       {{row.reservationName[c]}}

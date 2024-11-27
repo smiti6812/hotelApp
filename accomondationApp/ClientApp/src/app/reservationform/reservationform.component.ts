@@ -24,10 +24,9 @@ export class ReservationformComponent {
       name : new FormControl('', [Validators.required]),
       email : new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/)]),
       roomNumber: new FormControl(this.reservationForm.roomNumber),
-      status: new FormControl(this.reservationForm.status),
       capacity: new FormControl(this.reservationForm.capacity),
-      startDate : new FormControl(this.reservationForm.startDate),
-      endDate : new FormControl(this.reservationForm.endDate)
+      startDate : new FormControl(this.reservationForm.startDate.toString().substring(0,10)),
+      endDate : new FormControl(this.reservationForm.endDate.toString().substring(0,10))
     });
   }
   get name() {

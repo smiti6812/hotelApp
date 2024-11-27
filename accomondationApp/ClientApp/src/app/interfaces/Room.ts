@@ -1,7 +1,9 @@
 import { RoomCapacity } from "../interfaces/RoomCapacity"
 
+
 export interface Room{
+  roomId: number,
   roomNumber: string,
-  roomCapacity: RoomCapacity,
-  status: string
+  roomCapacityId: number,
+  roomCapacity: RoomCapacity
 }

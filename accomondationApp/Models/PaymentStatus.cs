@@ -11,5 +11,7 @@ public partial class PaymentStatus
 
     public string PaymentStatus1 { get; set; }
 
+    public bool Payed { get; set; }
+
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 }

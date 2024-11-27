@@ -16,7 +16,7 @@ namespace accomondationApp.Repositories
         }
         public Task<Room[]> ReturnRooms()
         {
-            return Task.FromResult(db.Rooms.Include(c => c.RoomCapacity).Include(s => s.RoomStatus).ToArray<Room>());
+            return Task.FromResult(db.Rooms.Include(c => c.RoomCapacity).ToArray<Room>());
         }
     }
 }
