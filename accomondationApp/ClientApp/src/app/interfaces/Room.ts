@@ -5,5 +5,5 @@ export interface Room{
   roomId: number,
   roomNumber: string,
   roomCapacityId: number,
-  roomCapacity: RoomCapacity
+  roomCapacity: RoomCapacity,
 }

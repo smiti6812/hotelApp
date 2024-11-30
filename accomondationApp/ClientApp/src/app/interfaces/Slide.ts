@@ -1,6 +1,7 @@
 import { PicturePath } from "./PicturePath";
 
-export interface Slides{
+export interface Slide
+{
   slideId: number,
-  picturePath: PicturePath[]
+  picturePaths: PicturePath[]
 }

@@ -19,5 +19,6 @@ namespace accomondationApp
         public Task<IEnumerable<Reservation>> GetReservations(DateTime date) => Task.FromResult(reservationRepository.GetReservations(date));
         public async Task<Reservation> SaveReservation(Reservation reservation) => await reservationRepository.AddReservationAsync(reservation);
         public async Task<IEnumerable<Room>> GetAllRooms() => await roomRepository.ReturnRooms();
+        public async Task<Reservation> CheckReturnReservation(int roomId, DateTime date) => await reservationRepository.CheckReturnReservation(roomId, date);
     }
 }

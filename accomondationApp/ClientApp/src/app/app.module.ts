@@ -36,7 +36,7 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'slideshow', component: SlideshowComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'hotel', component: HotelComponent}

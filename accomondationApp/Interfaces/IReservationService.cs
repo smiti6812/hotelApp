@@ -9,5 +9,6 @@ namespace accomondationApp.Interfaces
         Task<IEnumerable<Reservation>> GetReservations(DateTime date);       
         int DisplayedMonth();
         Task<IEnumerable<Room>> GetAllRooms();
+        Task<Reservation> CheckReturnReservation(int roomId, DateTime date);
     }
 }

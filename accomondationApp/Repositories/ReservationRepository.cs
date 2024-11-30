@@ -92,7 +92,7 @@ namespace accomondationApp.Repositories
 
         public Task<Reservation> CheckReturnReservation(int roomId, DateTime date) => Task.FromResult(dbContext.Reservations.FirstOrDefault(c => c.RommId == roomId && c.StartDate <= date && date <= c.EndDate));
         public IEnumerable<Reservation> GetReservations(DateTime date) => dbContext.Reservations.Include(cust => cust.Customer).Include(room => room.Romm).Where(c => c.EndDate >= date.AddDays(-date.Day) && date.AddDays(-date.Day) <= c.StartDate).ToList();
-        public Task<IEnumerable<Reservation?>> GetReservationsAsync(DateTime startDate, DateTime endDate)
+        public Task<IEnumerable<Reservation>> GetReservationsAsync(DateTime startDate, DateTime endDate)
         {
             return Task.FromResult(reservationCache is null ? Enumerable.Empty<Reservation>() : reservationCache.Values.Where(r => r.StartDate >= startDate && r.EndDate <= endDate));
         }

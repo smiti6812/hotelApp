@@ -1,1 +1,36 @@
-<p>slideshow works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div style="padding:5px;text-align: center;color:rgb(126, 126, 31)">
+      <h2>Galery of rooms</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div style="display:flex;justify-content: center; margin:2px auto; width:80%;padding:5px;border:solid 3px lightgrey;background-color: #ddd" >
+    <div class="col-1-sm" *ngFor="let slide of slides; let row = index"  [ngClass]="selectedSlideIndex === row ? 'selected-slide' : ''">
+      <img [src]=slide.picturePaths[0].src  (click)="selectRoom(row)" class="tumbnail cursor"/>
+      <div style="text-align: center;background-color:cadetblue;margin:2px;width:100px;font-weight: bold;">
+          {{slide.picturePaths[0].altText.toUpperCase()}}
+      </div>
+    </div>
+  </div>
+  </div>
+<div class="row">
+<div  style="display:flex;justify-content: center; margin:2px auto; width:80%;padding:5px;border:solid 3px lightgrey;">
+    <div style="position:relative;" *ngFor="let path of selectedSlide.picturePaths; let i = index">
+      <img
+        *ngIf="i === currentSlides[selectedSlideIndex]"
+        [src]="path.src"
+        [alt]="path.altText"
+        class="slide"
+        />
+        <div class="row" *ngIf="i === currentSlides[selectedSlideIndex]">
+          <div class="col-12" style="display:flex;justify-content: center;color:white;background-color: rgb(77, 76, 76);
+          height:50px;font-size: 15px;line-height: 50px;border-radius: 5px;">
+          {{path.altText}}
+        </div>
+   </div>
+   <a class="prev" (click)="onPreviousClick()">❮</a>
+   <a class="next" (click)="onNextClick()">❯</a>
+  </div>
+</div>
+</div>

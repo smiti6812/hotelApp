@@ -13,6 +13,8 @@ public partial class Room
 
     public int? RoomCapacityId { get; set; }
 
+    public virtual ICollection<PicturePath> PicturePaths { get; set; } = new List<PicturePath>();
+
     public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
 
     public virtual RoomCapacity RoomCapacity { get; set; }

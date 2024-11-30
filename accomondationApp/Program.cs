@@ -28,7 +28,8 @@ builder.Services.AddScoped<IReservationService>(i => new ReservationService(i.Ge
 builder.Services.AddScoped<IReservationViewWrapper>(ip =>new ReservationViewWrapper(ip.GetRequiredService<IReservationService>(),
     ip.GetRequiredService<IReservationViewProperties>()));
 builder.Services.AddScoped<IReservationViewService>(i => new ReservationViewService(i.GetRequiredService<IReservationViewWrapper>()));
-
+builder.Services.AddScoped<ISlideRepository, SlideRepository>();
+builder.Services.AddScoped<ISlideService>(i => new SlideService(i.GetRequiredService<ISlideRepository>()));
 
 builder.Services.AddDbContext<accomondationApp.Models.HotelAppDBContext>(options =>
 options.UseSqlServer(DBSettingProvider.ReturnConnectionString()));

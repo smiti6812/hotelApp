@@ -10,27 +10,27 @@ namespace accomondationApp.Controllers
     [ApiController]
     [Route("[controller]")]
     public class ReservationController : ControllerBase
-    {       
-        private readonly IReservationRepository reservationRepository;
+    {
         private readonly IReservationViewService reservationViewService;
+        private readonly IReservationService reservationService;
 
-        public ReservationController(IReservationViewService _reservationViewService, IReservationRepository _reservationRepository)
+        public ReservationController(IReservationViewService _reservationViewService, IReservationService reservationService)
         {
-            reservationRepository = _reservationRepository;
             reservationViewService = _reservationViewService;
+            this.reservationService = reservationService;
         }
         [HttpPost("delete")]
         public async Task<ReservationViewWrapper> DeleteReservation([FromBody] DeleteReservationParams parameters)
         {
-            var reservation = await reservationRepository.CheckReturnReservation(parameters.RoomId, parameters.Date);
-            bool deleted = await reservationRepository.DeleteReservationAsync(reservation.ReservationId)?? false;
-            DateTime pageSelecteddate = parameters.PageSelectedDate.AddDays(-parameters.PageSelectedDate.Day + 1).Date;            
+            var reservation = await reservationService.CheckReturnReservation(parameters.RoomId, parameters.Date);
+            bool deleted = await reservationService.DeleteReservation(reservation.ReservationId) ?? false;
+            DateTime pageSelecteddate = parameters.PageSelectedDate.AddDays(-parameters.PageSelectedDate.Day + 1).Date;
             return deleted ? await reservationViewService.CallRefreshReservationViewWrapper(reservation, pageSelecteddate) : await reservationViewService.CallGetReservationViewWrapperNextPrev(pageSelecteddate);
         }
         [HttpPost]
         public async Task<ReservationViewWrapper?> SaveReservation([FromBody] ReservationParams reservationParams)
         {
-            var reservation = reservationRepository.AddReservationAsync(reservationParams.Reservation).Result;
+            var reservation = reservationService.SaveReservation(reservationParams.Reservation).Result;
             return await reservationViewService.CallRefreshReservationViewWrapper(reservation, reservationParams.PageSelectedDate.AddDays(-reservationParams.PageSelectedDate.Day + 1).Date);
         }
 

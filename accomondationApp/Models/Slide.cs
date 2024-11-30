@@ -8,6 +8,5 @@ namespace accomondationApp.Models;
 public partial class Slide
 {
     public int SlideId { get; set; }
-
     public virtual ICollection<PicturePath> PicturePaths { get; set; } = new List<PicturePath>();
 }

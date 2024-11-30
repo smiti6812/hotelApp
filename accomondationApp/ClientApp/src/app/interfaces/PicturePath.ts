@@ -1,7 +1,9 @@
 
 
 export interface PicturePath{
-  pictureId: number,
+  picturePathId: number,
   src: string,
-  altText: string
+  altText: string,
+  roomId?: number,
+  slideId?: number
 }

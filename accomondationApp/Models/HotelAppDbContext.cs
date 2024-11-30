@@ -86,10 +86,15 @@ public partial class HotelAppDBContext : DbContext
             entity.Property(e => e.AltText)
                 .HasMaxLength(250)
                 .HasColumnName("altText");
+            entity.Property(e => e.RoomId).HasColumnName("roomId");
             entity.Property(e => e.SlideId).HasColumnName("slideId");
             entity.Property(e => e.Src)
                 .HasMaxLength(250)
                 .HasColumnName("src");
+
+            entity.HasOne(d => d.Room).WithMany(p => p.PicturePaths)
+                .HasForeignKey(d => d.RoomId)
+                .HasConstraintName("FK__PicturePa__roomI__2DE6D218");
 
             entity.HasOne(d => d.Slide).WithMany(p => p.PicturePaths)
                 .HasForeignKey(d => d.SlideId)
@@ -164,7 +169,9 @@ public partial class HotelAppDBContext : DbContext
         {
             entity.HasKey(e => e.SlideId).HasName("PK__Slides__52D88E3FFD2EC7A6");
 
-            entity.Property(e => e.SlideId).HasColumnName("slideId");
+            entity.Property(e => e.SlideId)
+                .ValueGeneratedNever()
+                .HasColumnName("slideId");
         });
 
         OnModelCreatingPartial(modelBuilder);
