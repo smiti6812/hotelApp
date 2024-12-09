@@ -1,3 +1,4 @@
+
 <div *ngIf="showModal" class="booking-modal">
     <div  *ngIf="selected.length > 0" class="booking-modal-content">
       <div class="booking-modal-header">
@@ -69,12 +70,12 @@
                 (mouseover) = "onMouseArrOver(r, c, item, row.room.roomId)"
 
                 (mouseup)="openModalAndSelectRangeBoxForRoomArr(row, row.dayDates, r, c, item)">
-                <span *ngIf="row.reservationSaved[c]" (click) = "deleteReservation(row, item, r)" class="close">&times;</span>
+                <span *ngIf="row.reservationSaved[c] && isUserAuthenticated()" (click) = "deleteReservation(row, item, r)" class="close">&times;</span>
                   <div *ngIf="row.reservationSaved[c] || row.reservationStartSaved[c] || row.reservationName[c]; else other_content" style="font-size:9px; color:white;">
                     <div *ngIf="row.reservationSaved[c] || row.reservationStartSaved[c]" style="display:inline-block;font-size:10px; color:white;">
                       {{getDateString(item)}}
                     </div>
-                    <div *ngIf="row.reservationName[c]" style="display:inline-block;font-size:9px; color:white;line-height: 15px;">
+                    <div *ngIf="row.reservationName[c] && isUserAuthenticated()" style="display:inline-block;font-size:9px; color:white;line-height: 15px;">
                       {{row.reservationName[c]}}
                     </div>
                    </div>

@@ -1,0 +1,13 @@
+{
+  "login": {
+      "title": "Login",
+      "username.label": "UserName",
+      "password.label":  "Password",
+      "username.placeholder": "Username Here",
+      "password.placeholder": "Password Here",
+      "button.name": "Submit",
+      "button.en": "English",
+      "button.hu": "Hungarian"
+  }
+
+}

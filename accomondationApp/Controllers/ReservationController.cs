@@ -3,11 +3,12 @@ using accomondationApp.Models;
 using accomondationApp.Repositories;
 using accomondationApp.ViewModel;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace accomondationApp.Controllers
 {
-    [ApiController]
+    [ApiController]   
     [Route("[controller]")]
     public class ReservationController : ControllerBase
     {
@@ -20,6 +21,7 @@ namespace accomondationApp.Controllers
             this.reservationService = reservationService;
         }
         [HttpPost("delete")]
+        [Authorize]
         public async Task<ReservationViewWrapper> DeleteReservation([FromBody] DeleteReservationParams parameters)
         {
             var reservation = await reservationService.CheckReturnReservation(parameters.RoomId, parameters.Date);
@@ -37,7 +39,7 @@ namespace accomondationApp.Controllers
         [HttpGet("nextprev")]
         public async Task<ReservationViewWrapper> GetResViewWrapperPrevNext(DateTime currDate) => await reservationViewService.CallGetReservationViewWrapperNextPrev(currDate.AddDays(-currDate.Day + 1).Date);
 
-        [HttpGet]
+        [HttpGet]    
         public async Task<ReservationViewWrapper> Get(DateTime currDate) => await reservationViewService.CallGetReservationViewWrapper(currDate.AddDays(-currDate.Day + 1).Date);
 
     }

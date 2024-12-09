@@ -5,18 +5,18 @@
     </div>
   </div>
   <div class="row">
-    <div style="display:flex;justify-content: center; margin:2px auto; width:80%;padding:5px;border:solid 3px lightgrey;background-color: #ddd" >
+    <div class="tumbnail-container" >
     <div class="col-1-sm" *ngFor="let slide of slides; let row = index"  [ngClass]="selectedSlideIndex === row ? 'selected-slide' : ''">
       <img [src]=slide.picturePaths[0].src  (click)="selectRoom(row)" class="tumbnail cursor"/>
-      <div style="text-align: center;background-color:cadetblue;margin:2px;width:100px;font-weight: bold;">
+      <div class="alttext-container">
           {{slide.picturePaths[0].altText.toUpperCase()}}
       </div>
     </div>
   </div>
   </div>
 <div class="row">
-<div  style="display:flex;justify-content: center; margin:2px auto; width:80%;padding:5px;border:solid 3px lightgrey;">
-    <div style="position:relative;" *ngFor="let path of selectedSlide.picturePaths; let i = index">
+<div  class="carousel">
+    <div style="position:relative;" *ngFor="let path of selectedSlide?.picturePaths; let i = index">
       <img
         *ngIf="i === currentSlides[selectedSlideIndex]"
         [src]="path.src"

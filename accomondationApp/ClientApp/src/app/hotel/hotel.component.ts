@@ -13,6 +13,9 @@ import { ReservationViewWrapper } from '../interfaces/ReservationViewWrapper';
 import { Customer } from '../interfaces/Customer';
 import { PaymentStatus } from '../interfaces/PaymentStatus';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Component({
   selector: 'app-hotel',
@@ -32,6 +35,7 @@ export class HotelComponent implements OnInit  {
   showModal: boolean = false;
   pageSelectedDate:DateTime = DateTime.now();
   hotelService: HotelService = Inject(HotelService);
+  authService: AuthGuard = Inject(AuthGuard);
   isSorted: number = 0;
   searchText: string = '';
   column:string = 'Room';
@@ -40,8 +44,16 @@ export class HotelComponent implements OnInit  {
   reservationForm: ReservationForm = {} as ReservationForm;
 
 
-  constructor(private _hotelService: HotelService){
+  constructor(private _hotelService: HotelService, private jwtHelper: JwtHelperService, private router:Router){
     this.hotelService = _hotelService;
+  }
+
+  isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("jwt");
+    if (token && !this.jwtHelper.isTokenExpired(token)){
+      return true;
+    }
+    return false;
   }
 
   getDateString(date: DateTime){

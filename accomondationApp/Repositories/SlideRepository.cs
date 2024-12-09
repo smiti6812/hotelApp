@@ -10,6 +10,6 @@ namespace accomondationApp.Repositories
         private readonly HotelAppDBContext dbContext;
         public SlideRepository(HotelAppDBContext _dbContext) => dbContext = _dbContext;      
         public Task<IEnumerable<Slide>> GetAllSlides() => Task.FromResult(dbContext.Slides.Include(pp => pp.PicturePaths).AsEnumerable<Slide>());
-        public Task<Slide> GetSingleSlide(int roomId) => Task.FromResult(dbContext.Slides.First(f => f.PicturePaths.Any(p => p.RoomId == roomId)));
+        public Task<Slide> GetSingleSlide(int roomId) => Task.FromResult(dbContext.Slides.Include(pp => pp.PicturePaths).First(f => f.PicturePaths.Any(p => p.RoomId == roomId)));
     }
 }

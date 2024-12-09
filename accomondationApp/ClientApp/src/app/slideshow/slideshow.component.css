@@ -2,13 +2,30 @@
   flex: 1;
 }
 
+.alttext-container{
+  text-align: center;
+  background-color:cadetblue;
+  margin:2px;
+  width:100px;
+  font-weight: bold;
+}
+
+.tumbnail-container{
+  display:flex;
+  justify-content: center;
+  margin:2px auto;
+  width:80%;
+  padding:5px;
+  border:solid 3px lightgrey;
+  background-color: #ddd
+}
 .carousel {
   display:flex;
   justify-content: center;
-  height: 70%;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 0.5em;
+  margin:2px auto;
+  width:80%;
+  padding:5px;
+  border:solid 3px lightgrey;
 }
 
 .selected-slide{
