@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -18,19 +18,19 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 import { LoginComponent } from './login/login.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth.guard';
-//import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-//import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
 /*
-export function httpTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http, './i18n/', '.json');
 }
-
 */
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +69,7 @@ export function httpTranslateLoader(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
          provide: TranslateLoader,
-         useFactory: httpTranslateLoader,
+         useFactory: HttpLoaderFactory,
          deps: [HttpClient]
          }
       })
