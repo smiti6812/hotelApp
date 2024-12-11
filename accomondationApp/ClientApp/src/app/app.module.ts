@@ -18,8 +18,8 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 import { LoginComponent } from './login/login.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth.guard';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+//import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+//import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 export function tokenGetter() {
