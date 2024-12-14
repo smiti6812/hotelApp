@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { LoginModel } from '../interfaces/LoginModel'
 import {AuthenticatedResponse} from '../interfaces/AuthenticatedResponse'
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,10 @@ export class LoginComponent implements OnInit{
  invalidLogin: boolean;
  credentials: LoginModel = {userName:'', password:''};
 
- constructor(private router: Router, private http: HttpClient) { }
+ constructor(private router: Router, private http: HttpClient, public translate: TranslateService) {
+    translate.addLangs(['en', 'hu']);
+    //translate.setDefaultLang('hu');
+  }
 
   ngOnInit(): void {
   }
@@ -30,12 +35,11 @@ export class LoginComponent implements OnInit{
               localStorage.setItem("jwt", token);
               localStorage.setItem("refreshtoken", refreshToken)
               this.invalidLogin = false;
-              this.router.navigate(["/"]);
+              this.router.navigate(["/hotel"]);
           },
           error: (err: HttpErrorResponse) => this.invalidLogin = true
       })
       }
-
   }
 
 }

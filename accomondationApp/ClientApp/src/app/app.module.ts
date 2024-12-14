@@ -18,18 +18,18 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 import { LoginComponent } from './login/login.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { AuthGuard } from './guards/auth.guard';
-//import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-//import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
 }
-/*
+
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, './i18n/', '.json');
+  return new TranslateHttpLoader(http);
 }
-*/
+
 
 @NgModule({
   declarations: [
@@ -65,7 +65,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         disallowedRoutes: []
       }
     }),
-/*
+
     TranslateModule.forRoot({
       loader: {
          provide: TranslateLoader,
@@ -73,7 +73,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
          deps: [HttpClient]
          }
       })
-*/
+
   ],
   providers: [],
   bootstrap: [AppComponent, HotelComponent]

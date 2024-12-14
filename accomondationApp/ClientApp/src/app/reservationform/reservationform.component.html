@@ -5,15 +5,15 @@
       <div class="col-2">
       </div>
       <div class="col-3">
-        <label class="control-label col-md-2 form-div-label-font">Name: </label> <span style="color:red;">*</span>
+        <label class="control-label col-md-2 form-div-label-font">{{'Name' | translate }}: </label> <span style="color:red;">*</span>
       </div>
       <div class="col-5">
-        <input type="text" id="name" class="form-control" formControlName="name" placeholder="Name" required
+        <input type="text" id="name" class="form-control" formControlName="name" placeholder="{{'Name' | translate }}" required
          />
         <div *ngIf="name?.invalid && (name?.dirty || name?.touched)"
                 class="alert alert-danger">
         <div *ngIf="name?.hasError('required')">
-          Name is required.
+          {{'Name is required.' | translate }}
         </div>
         </div>
       </div>
@@ -24,13 +24,13 @@
       <div class="col-2">
       </div>
       <div class="col-3">
-        <label class="control-label col-md-2 form-div-label-font">Email: </label> <span style="color:red;">*</span>
+        <label class="control-label col-md-2 form-div-label-font">{{'Email' | translate }}: </label> <span style="color:red;">*</span>
       </div>
       <div class="col-5">
-        <input type="email" id="email" class="form-control"  formControlName="email" placeholder="Email" required />
+        <input type="email" id="email" class="form-control"  formControlName="email" placeholder="{{'Email' | translate }}" required />
         <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
                 class="alert alert-danger">
-         Please enter a valid email adress!
+         {{'Please enter a valid email adress!' | translate }}
         </div>
       </div>
       <div class="col-2">
@@ -40,10 +40,10 @@
         <div class="col-2">
         </div>
         <div class="col-3">
-          <label class="control-label col-md-2 form-div-label-font">Room:</label>
+          <label class="control-label col-md-2 form-div-label-font">{{'Room' | translate }}:</label>
         </div>
         <div class="col-5">
-          <input type="text" class="form-control"  formControlName="roomNumber" placeholder="roomNumber" readonly />
+          <input type="text" class="form-control"  formControlName="roomNumber" placeholder="{{'Room' | translate }}" readonly />
         </div>
         <div class="col-2">
         </div>
@@ -52,10 +52,10 @@
         <div class="col-2">
         </div>
         <div class="col-3">
-          <label class="control-label col-md-2 form-div-label-font">Beds:</label>
+          <label class="control-label col-md-2 form-div-label-font">{{'Beds' | translate }}:</label>
         </div>
         <div class="col-5">
-          <input type="text" class="form-control"  formControlName="capacity" placeholder="capacity" readonly />
+          <input type="text" class="form-control"  formControlName="capacity" placeholder="{{'Beds' | translate }}" readonly />
         </div>
         <div class="col-2">
         </div>
@@ -64,10 +64,10 @@
         <div class="col-2">
         </div>
         <div class="col-3">
-          <label class="control-label col-md-4 form-div-label-font">Start Date:</label>
+          <label class="control-label col-md-4 form-div-label-font">{{'Start Date' | translate }}:</label>
         </div>
         <div class="col-5">
-          <input type="text" class="form-control"  formControlName="startDate" placeholder="Start Date" readonly />
+          <input type="text" class="form-control"  formControlName="startDate" placeholder="{{'Start Date' | translate }}" readonly />
         </div>
         <div class="col-2">
         </div>
@@ -76,10 +76,10 @@
         <div class="col-2">
         </div>
         <div class="col-3">
-          <label class="control-label col-md-4 form-div-label-font">End Date:</label>
+          <label class="control-label col-md-4 form-div-label-font">{{'End Date' | translate }}:</label>
         </div>
         <div class="col-5">
-          <input type="text" class="form-control"  formControlName="endDate" placeholder="End Date"  readonly/>
+          <input type="text" class="form-control"  formControlName="endDate" placeholder="{{'End Date' | translate }}"  readonly/>
         </div>
         <div class="col-2">
         </div>
@@ -89,10 +89,10 @@
         <div class="col-2">
         </div>
         <div class="col-1">
-          <button type="submit" (click) ="cancelForm()" class="btn btn-secondary">Cancel</button>
+          <button type="submit" (click) ="cancelForm()" class="btn btn-secondary">{{'Cancel' | translate }}</button>
         </div>
         <div class="col-2">
-          <button type="submit" [disabled]="!reservationGroup.valid" (click)="submitForm()"  class="btn btn-primary">Save</button>
+          <button type="submit" [disabled]="!reservationGroup.valid" (click)="submitForm()"  class="btn btn-primary">{{'Save' | translate }}</button>
         </div>
       </div>
     </div>

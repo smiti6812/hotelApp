@@ -2,7 +2,7 @@
 <div *ngIf="showModal" class="booking-modal">
     <div  *ngIf="selected.length > 0" class="booking-modal-content">
       <div class="booking-modal-header">
-        Save your booking
+        {{'Save your booking' | translate }}
         <span (click) = "closeModal()" class="booking-close">&times;</span>
         </div>
       <app-reservationform (cancelReservationForm) = "cancelForm($event)" (submitReservationForm) ="getReservationForm($event)"  [reservationForm] = "reservationForm"></app-reservationform>
@@ -34,18 +34,18 @@
           <thead style="width:10%;">
             <tr>
               <th style="position:sticky;min-width:120px;left:0px;">
-                  Room
+                  {{'Room' | translate}}
                   <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up" id="roomAsc"></i>
                   <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-down" id="roomDesc"></i>
               </th>
               <th>
-                Beds
+                {{'Beds' | translate}}
                   <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up" id="bedsAsc"></i>
                   <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-down" id="bedsDesc"></i>
               </th>
               <th class="booking-item-header"  *ngFor="let item of reservationViewWrapper.reservationViewHeader.dayDates;let index = index" [ngClass]="checkWeekend(item) ? 'booking-item-header-weekend' : 'booking-item-header'">
                 <div style="display:flex;justify-content:center;margin:0 auto;">
-                 {{getWeekDay(index)}}
+                 {{getWeekDay(index).substring(0,3) | translate}}{{getWeekDay(index).substring(3)}}
               </div>
               </th>
             </tr>
@@ -53,7 +53,7 @@
           <tbody>
             <tr *ngFor="let row of reservationViewWrapper.reservationView |filter:searchText|sort:direction:column:type; let r = index">
               <td style="position:sticky;left:0;min-width:120px;">
-                {{row.room.roomNumber}}
+                {{row.room.roomNumber.substring(0,4) | translate}}{{row.room.roomNumber.substring(4)}}
               </td>
               <td style="min-width:100px;">
                 {{row.room.roomCapacity.capacity}}
