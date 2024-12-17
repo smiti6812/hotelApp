@@ -84,6 +84,7 @@
 .tumnail-selected{
   background-color: #aaa;
 }
+/*
 .control {
   border: none;
   background-color: transparent;
@@ -106,7 +107,7 @@
     opacity: 1;
   }
 
-  /* Position the buttons */
+
   &.next {
     right: 0;
   }
@@ -115,18 +116,20 @@
   }
 }
 
-/* style the arrows */
+
 .arrow {
   display: block;
   border-left: 0.5em solid black;
   border-bottom: 0.5em solid black;
   width: 0.5em;
   height: 0.5em;
-
   &.left {
     transform: rotate(45deg);
   }
   &.right {
     transform: rotate(225deg);
   }
+
+
 }
+*/

@@ -12,7 +12,7 @@ export class NavMenuComponent {
   isExpanded = false;
 
   constructor(private jwtHelper: JwtHelperService, private router:Router, public translate: TranslateService){
-    translate.addLangs(['en', 'hu']);
+    translate.addLangs(['en', 'hu', 'de']);
     translate.setDefaultLang('en');
   }
   switchLang(lang: string) {

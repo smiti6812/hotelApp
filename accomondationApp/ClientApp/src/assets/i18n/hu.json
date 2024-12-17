@@ -20,5 +20,12 @@
   "Cancel": "Mégsem",
    "Save your booking": "Foglalás mentése",
    "Name is required.": "Név megadása kötelező.",
-   "Please enter a valid email adress!": "Érvényes email címet adjon meg!"
+   "Please enter a valid email adress!": "Érvényes email címet adjon meg!",
+   "Galery of rooms" : "Képtár",
+   "Galery": "Képek",
+   "Room Booking": "Szoba foglalás",
+   "Log out": "Kijelentkezés",
+   "Reservation tool" : "Szállás App",
+   "Search": "Keres",
+   "Available Rooms": "Szabad szobák"
 }

@@ -1,11 +1,11 @@
-<div class="container-fluid">
+<div class="container-fluid"  style="background-color: beige;border-radius: 10px;">
   <div class="row">
     <div style="padding:5px;text-align: center;color:rgb(126, 126, 31)">
-      <h2>Galery of rooms</h2>
+      <h2>{{'Galery of rooms' | translate }}</h2>
     </div>
   </div>
   <div class="row">
-    <div class="tumbnail-container" >
+    <div class="tumbnail-container">
     <div class="col-1-sm" *ngFor="let slide of slides; let row = index"  [ngClass]="selectedSlideIndex === row ? 'selected-slide' : ''">
       <img [src]=slide.picturePaths[0].src  (click)="selectRoom(row)" class="tumbnail cursor"/>
       <div class="alttext-container">

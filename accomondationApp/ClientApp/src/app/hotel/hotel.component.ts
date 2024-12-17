@@ -16,6 +16,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
+import { TempReservation } from '../interfaces/TempReservation';
+import { TempReservationService } from '../TempReservationService';
 
 @Component({
   selector: 'app-hotel',
@@ -42,10 +44,13 @@ export class HotelComponent implements OnInit  {
   direction:string = 'asc';
   type:string = 'string';
   reservationForm: ReservationForm = {} as ReservationForm;
+  tempReservation!: TempReservation[];
+  tempReservationService: TempReservationService = Inject(TempReservationService);
 
-
-  constructor(private _hotelService: HotelService, private jwtHelper: JwtHelperService, private router:Router){
+  constructor(private _hotelService: HotelService, private jwtHelper: JwtHelperService, private router:Router, private _tempReservationService: TempReservationService){
     this.hotelService = _hotelService;
+    this.tempReservation = [];
+    this.tempReservationService = _tempReservationService;
   }
 
   isUserAuthenticated = (): boolean => {
@@ -112,11 +117,26 @@ export class HotelComponent implements OnInit  {
     this.hotelService.saveReservation(res, this.pageSelectedDate).subscribe(
       result =>{ this.reservationViewWrapper = result }
     );
-
+    if(!this.isUserAuthenticated()){
+      let tempRes = {} as TempReservation;
+      tempRes.id = this.tempReservationService.tempReservation.length + 1;
+      tempRes.name = form.name,
+      tempRes.roomNumber = form.view.room.roomNumber;
+      tempRes.endDate = res.endDate
+      this.tempReservationService.tempReservation.push(tempRes);
+    }
     this.showModal = false;
     this.start = -1;
     this.end = -1;
     this.selectedRow = -1;
+  }
+
+  checkTempReservation(roomNumber: string, endDate:DateTime):boolean{
+    if(this.tempReservationService.tempReservation.length > 0 && this.tempReservationService.tempReservation.some(c => c.roomNumber === roomNumber && c.endDate === endDate)){
+      return true;
+    }
+
+    return false;
   }
 
   setSortParams(param: any) {
@@ -195,6 +215,11 @@ export class HotelComponent implements OnInit  {
       this.hotelService.deleteReservation(view.room.roomId, date, this.pageSelectedDate).subscribe(
         result =>{ this.reservationViewWrapper = result }
       );
+      if(!this.isUserAuthenticated() &&  this.tempReservationService.tempReservation.length > 0){
+        let temp = this.tempReservationService.tempReservation.find(c => c.roomNumber === view.room.roomNumber && c.endDate === date) as TempReservation;
+        let index: number = this.tempReservationService.tempReservation.indexOf(temp);
+        this.tempReservationService.tempReservation.splice(index, 1);
+      }
     }
   }
 

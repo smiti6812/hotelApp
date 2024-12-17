@@ -1,8 +1,10 @@
 <header>
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3" style="background-color: #e3f2fd;font-weight: bold;">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">accomondationApp</a>
+      <a class="navbar-brand" [routerLink]="['/']"  [routerLinkActive]="['link-active']"
+      [routerLinkActiveOptions]="{ exact: true }" style="padding:2px;">{{'Reservation tool' | translate }}</a>
+
       <button
         class="navbar-toggler"
         type="button"
@@ -24,25 +26,25 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/slideshow']">Home</a>
+            <a class="nav-link text-dark" [routerLink]="['/slideshow']">{{'Galery' | translate}}</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/counter']"
               >Counter</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
               >Fetch data</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/hotel']"
-              >Room Booking</a
+              >{{'Room Booking' | translate}}</a
             >
           </li>
-          <li class="nav-item" *ngIf="!isUserAuthenticated()"><a class="nav-link text-dark" [routerLink]="['/login']">Login</a></li>
-          <li class="nav-item" *ngIf="isUserAuthenticated()"><a class="nav-link text-dark" (click)="logOut()">Log out</a></li>
+          <li class="nav-item" *ngIf="!isUserAuthenticated()" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }"><a class="nav-link text-dark" [routerLink]="['/login']">{{ 'Login' | translate }}</a></li>
+          <li class="nav-item" *ngIf="isUserAuthenticated()" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }"><a class="nav-link text-dark" (click)="logOut()">{{'Log out' | translate }}</a></li>
           <li class="nav-item">
             <span class="form-inline">
               <select

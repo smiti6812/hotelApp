@@ -21,7 +21,7 @@ namespace accomondationApp.Controllers
             this.reservationService = reservationService;
         }
         [HttpPost("delete")]
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         public async Task<ReservationViewWrapper> DeleteReservation([FromBody] DeleteReservationParams parameters)
         {
             var reservation = await reservationService.CheckReturnReservation(parameters.RoomId, parameters.Date);
